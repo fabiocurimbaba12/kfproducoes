@@ -4,11 +4,7 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
   <title>KF Produções - Agência de Marketing</title>
-  <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Segoe+UI:wght@400;700&display=swap" rel="stylesheet">
   <style>
-    /* Reset e Fundamentos */
     * {
       margin: 0;
       padding: 0;
@@ -23,11 +19,45 @@
       font-family: 'Segoe UI', sans-serif;
       background: #fef7ed;
       color: #333;
-      /* Removido overflow-x: hidden para evitar problemas em alguns casos,
-         geralmente o layout responsivo cuida disso. */
+      overflow-x: hidden;
     }
 
-    /* Cabeçalho */
+    #loading {
+      position: fixed;
+      width: 100%;
+      height: 100%;
+      background-color: #fff3e0;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      z-index: 9999;
+      animation: fadeOut 1s ease forwards;
+      animation-delay: 1s;
+    }
+
+    #loading img {
+      width: 120px;
+      animation: pulse 1s infinite alternate;
+    }
+
+    #main-content {
+      display: none;
+    }
+
+    @keyframes pulse {
+      0% { transform: scale(1); opacity: 1; }
+      100% { transform: scale(1.1); opacity: 0.8; }
+    }
+
+    @keyframes fadeOut {
+      to {
+        opacity: 0;
+        visibility: hidden;
+      }
+    }
+
+    /* --- estilos do site --- */
+
     header {
       text-align: center;
       padding: 2rem 1rem;
@@ -36,12 +66,12 @@
     }
 
     header img {
-      width: clamp(100px, 20vw, 180px); /* Tamanho flexível da imagem do logo */
+      width: 150px;
       animation: zoomIn 1s ease-in-out;
     }
 
     h1 {
-      font-size: clamp(2rem, 5vw, 3rem); /* Tamanho de fonte flexível para o título principal */
+      font-size: 2.5rem;
       margin-top: 1rem;
       color: #ff6f00;
     }
@@ -49,27 +79,25 @@
     nav {
       display: flex;
       justify-content: center;
-      gap: 1.5rem; /* Reduzido um pouco o espaçamento para telas menores */
+      gap: 2rem;
       margin-top: 1rem;
-      flex-wrap: wrap; /* Garante que os links da navegação quebrem a linha se não houver espaço */
+      flex-wrap: wrap;
     }
 
     nav a {
       text-decoration: none;
       color: #ff6f00;
       font-weight: bold;
-      font-size: clamp(0.9rem, 2vw, 1.1rem); /* Tamanho de fonte flexível para os links de navegação */
+      font-size: 1rem;
       transition: color 0.3s;
-      padding: 0.2rem 0.5rem; /* Adicionado um pequeno padding para facilitar o clique em touchscreens */
     }
 
     nav a:hover {
       color: #ff4081;
     }
 
-    /* Seções */
     section {
-      padding: 3rem 1rem; /* Ajustado padding lateral para telas menores */
+      padding: 3rem 2rem;
       max-width: 1000px;
       margin: auto;
     }
@@ -80,21 +108,19 @@
     }
 
     .hero h2 {
-      font-size: clamp(1.8rem, 4vw, 2.5rem); /* Tamanho de fonte flexível para o subtítulo do herói */
+      font-size: 2rem;
       margin-bottom: 1rem;
     }
 
     .hero p {
-      font-size: clamp(1rem, 2.5vw, 1.2rem); /* Tamanho de fonte flexível para o parágrafo do herói */
+      font-size: 1.2rem;
       color: #666;
-      max-width: 800px; /* Adicionado max-width para evitar linhas muito longas em telas grandes */
-      margin: 0.5rem auto; /* Centraliza o parágrafo */
     }
 
     .services {
       display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); /* Min-width um pouco menor para mais flexibilidade */
-      gap: 1.5rem; /* Espaçamento entre os cards de serviço */
+      grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+      gap: 2rem;
       margin-top: 3rem;
     }
 
@@ -104,35 +130,26 @@
       padding: 1.5rem;
       box-shadow: 0 4px 15px rgba(0,0,0,0.1);
       transition: transform 0.3s ease;
-      text-align: center; /* Centraliza o texto dentro do card */
     }
 
     .service-card:hover {
-      transform: translateY(-5px); /* Efeito sutil de levantar ao invés de escalar para evitar overflow */
+      transform: scale(1.05);
     }
 
     .service-card h3 {
       color: #ff6f00;
       margin-bottom: 0.5rem;
-      font-size: clamp(1.2rem, 3vw, 1.5rem);
     }
 
-    .service-card p {
-      font-size: clamp(0.9rem, 2.2vw, 1rem);
-      color: #555;
-    }
-
-    /* Rodapé */
     footer {
       text-align: center;
       padding: 2rem;
       background-color: #fff3e0;
       margin-top: 4rem;
-      font-size: clamp(0.8rem, 2vw, 0.9rem); /* Tamanho de fonte flexível para o rodapé */
+      font-size: 0.9rem;
       color: #555;
     }
 
-    /* Animações */
     @keyframes fadeIn {
       from { opacity: 0; transform: translateY(20px); }
       to { opacity: 1; transform: translateY(0); }
@@ -143,129 +160,87 @@
       to { transform: scale(1); opacity: 1; }
     }
 
-    /* Seções de texto genéricas */
-    section h2 {
-      font-size: clamp(1.8rem, 4vw, 2.5rem);
-      text-align: center;
-      margin-bottom: 2rem;
-      color: #ff6f00;
+    @media (max-width: 600px) {
+      h1 {
+        font-size: 2rem;
+      }
+
+      .hero h2 {
+        font-size: 1.5rem;
+      }
+
+      .hero p {
+        font-size: 1rem;
+      }
+
+      nav {
+        gap: 1rem;
+      }
     }
-
-    section p {
-      line-height: 1.6;
-      text-align: center;
-    }
-
-    /* Ajustes específicos para a seção de contato */
-    #contato strong {
-      display: block; /* Garante que o telefone e email fiquem em suas próprias linhas */
-      margin-top: 0.5rem;
-    }
-
-    /* Integração do Instagram */
-    #instagram .instagram-media {
-      max-width: 100% !important; /* Garante que o embed do Instagram seja responsivo */
-      min-width: unset !important; /* Desfaz qualquer min-width padrão do embed */
-      width: 320px; /* Mantém um tamanho base, mas o max-width: 100% o torna flexível */
-      margin: 0 auto; /* Centraliza o bloco */
-    }
-    
-    /* Media Queries - Ajustes finos para telas menores */
-    @media (max-width: 768px) {
-        section {
-            padding: 2rem 1rem; /* Reduz o padding vertical em telas menores */
-        }
-
-        .services {
-            grid-template-columns: 1fr; /* Coloca os cards em uma única coluna em telas menores */
-            padding: 0 1rem; /* Adiciona padding para os lados dos cards */
-        }
-
-        .service-card {
-            margin-bottom: 1rem; /* Espaçamento entre os cards quando em coluna */
-        }
-    }
-
-    @media (max-width: 480px) {
-        header {
-            padding: 1.5rem 0.5rem; /* Mais compacto em celulares */
-        }
-
-        nav {
-            gap: 0.8rem; /* Reduz o espaçamento entre os links */
-        }
-
-        .hero p {
-            padding: 0 1rem; /* Adiciona padding para o parágrafo do herói */
-        }
-    }
-
   </style>
 </head>
 <body>
 
-  <header>
-    <img src="img/kf.png" alt="Logo KF Produções" />
-    <h1>KF Produções</h1>
-    <nav>
-      <a href="#servicos" class="scroll-link">Serviços</a>
-      <a href="#sobre" class="scroll-link">Sobre</a>
-      <a href="#contato" class="scroll-link">Contato</a>
-      <a href="#instagram" class="scroll-link">Instagram</a>
-    </nav>
-  </header>
+  <!-- Tela de carregamento -->
+  <div id="loading">
+    <img src="img/kf.png" alt="Carregando..." />
+  </div>
 
-  <section class="hero">
-    <h2>Transformando Ideias em Resultados</h2>
-    <p>Somos especialistas em marketing digital, branding e produção audiovisual.</p>
-  </section>
+  <!-- Conteúdo do site -->
+  <div id="main-content">
+    <header>
+      <img src="img/kf.png" alt="Logo KF Produções" />
+      <h1>KF Produções</h1>
+      <nav>
+        <a href="#servicos" class="scroll-link">Serviços</a>
+        <a href="#sobre" class="scroll-link">Sobre</a>
+        <a href="#contato" class="scroll-link">Contato</a>
+      </nav>
+    </header>
 
-  <section id="servicos">
-    <h2>Nossos Serviços</h2>
-    <div class="services">
-      <div class="service-card">
-        <h3>Gestão de Redes Sociais</h3>
-        <p>Criação de conteúdo, agendamento e crescimento orgânico para sua marca.</p>
+    <section class="hero">
+      <h2>Transformando Ideias em Resultados</h2>
+      <p>Somos especialistas em marketing digital, branding e produção audiovisual.</p>
+    </section>
+
+    <section id="servicos">
+      <h2 style="text-align:center; margin-bottom: 2rem;">Nossos Serviços</h2>
+      <div class="services">
+        <div class="service-card">
+          <h3>Gestão de Redes Sociais</h3>
+          <p>Criação de conteúdo, agendamento e crescimento orgânico para sua marca.</p>
+        </div>
+        <div class="service-card">
+          <h3>Criação de Sites</h3>
+          <p>Landing pages e sites responsivos que convertem visitantes em clientes.</p>
+        </div>
+        <div class="service-card">
+          <h3>Produção de Vídeos</h3>
+          <p>Vídeos promocionais, reels, institucional e cobertura de eventos.</p>
+        </div>
       </div>
-      <div class="service-card">
-        <h3>Criação de Sites</h3>
-        <p>Landing pages e sites responsivos que convertem visitantes em clientes.</p>
-      </div>
-      <div class="service-card">
-        <h3>Produção de Vídeos</h3>
-        <p>Vídeos promocionais, reels, institucional e cobertura de eventos.</p>
-        </div>
-    </div>
-  </section>
+    </section>
 
-  <section id="sobre">
-    <h2>Sobre a KF Produções</h2>
-    <p>
-      Somos uma agência jovem, criativa e apaixonada por transformar projetos em marcas memoráveis.
-      Utilizamos design, estratégia e tecnologia para impulsionar resultados reais.
-    </p>
-  </section>
+    <section id="sobre">
+      <h2 style="text-align:center; margin-bottom: 2rem;">Sobre a KF Produções</h2>
+      <p style="text-align:center; max-width: 700px; margin: auto; color: #555;">
+        Somos uma agência jovem, criativa e apaixonada por transformar projetos em marcas memoráveis.
+        Utilizamos design, estratégia e tecnologia para impulsionar resultados reais.
+      </p>
+    </section>
 
-  <section id="contato">
-    <h2>Entre em Contato</h2>
-    <p>Fale conosco pelo WhatsApp: <strong>(35) 99759-7822</strong><br/>Ou envie um e-mail para: <strong>contato@kfproducoes.com</strong></p>
-  </section>
+    <section id="contato">
+      <h2 style="text-align:center; margin-bottom: 2rem;">Entre em Contato</h2>
+      <p style="text-align:center;">Fale conosco pelo WhatsApp: <strong>(XX) XXXXX-XXXX</strong><br/>Ou envie um e-mail para: <strong>contato@kfproducoes.com</strong></p>
+    </section>
 
-  <section id="instagram">
-    <h2>Nosso Instagram</h2>
-    <div style="display: flex; justify-content: center;">
-      <blockquote class="instagram-media" data-instgrm-permalink="https://www.instagram.com/producoeskf_/" data-instgrm-version="14" style="width:100%; max-width:320px;"></blockquote>
-    </div>
-    <script async src="//www.instagram.com/embed.js"></script>
-  </section>
-
-
-  <footer>
-    <p>© 2025 KF Produções - Todos os direitos reservados</p>
-  </footer>
+    <footer>
+      <p>© 2025 KF Produções - Todos os direitos reservados</p>
+    </footer>
+  </div>
 
   <script>
-    // Scroll suave adicional para garantir compatibilidade total
+    // Scroll suave para navegadores
     document.querySelectorAll('.scroll-link').forEach(link => {
       link.addEventListener('click', function(e) {
         e.preventDefault();
@@ -273,6 +248,14 @@
         const section = document.getElementById(id);
         section.scrollIntoView({ behavior: 'smooth' });
       });
+    });
+
+    // Tela de loading
+    window.addEventListener('load', () => {
+      setTimeout(() => {
+        document.getElementById('loading').style.display = 'none';
+        document.getElementById('main-content').style.display = 'block';
+      }, 1500);
     });
   </script>
 
