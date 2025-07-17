@@ -4,7 +4,11 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
   <title>KF Produções - Agência de Marketing</title>
+  <link rel="icon" type="image/png" href="img/kf.png" />
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" />
+  <link rel="stylesheet" href="https://unpkg.com/aos@2.3.1/dist/aos.css" />
   <style>
+    /* Reset e Configurações Básicas */
     * {
       margin: 0;
       padding: 0;
@@ -19,9 +23,11 @@
       font-family: 'Segoe UI', sans-serif;
       background: #fef7ed;
       color: #333;
-      overflow-x: hidden;
+      overflow-x: hidden; /* Evita rolagem horizontal indesejada */
+      line-height: 1.6; /* Melhora a legibilidade do texto */
     }
 
+    /* Tela de Carregamento */
     #loading {
       position: fixed;
       width: 100%;
@@ -32,7 +38,7 @@
       justify-content: center;
       z-index: 9999;
       animation: fadeOut 1s ease forwards;
-      animation-delay: 1s;
+      animation-delay: 1.5s;
     }
 
     #loading img {
@@ -41,7 +47,7 @@
     }
 
     #main-content {
-      display: none;
+      display: none; /* Escondido por padrão, revelado após o carregamento */
     }
 
     @keyframes pulse {
@@ -50,14 +56,10 @@
     }
 
     @keyframes fadeOut {
-      to {
-        opacity: 0;
-        visibility: hidden;
-      }
+      to { opacity: 0; visibility: hidden; }
     }
 
-    /* --- estilos do site --- */
-
+    /* Cabeçalho */
     header {
       text-align: center;
       padding: 2rem 1rem;
@@ -67,11 +69,12 @@
 
     header img {
       width: 150px;
+      height: auto; /* Garante que a proporção da imagem seja mantida */
       animation: zoomIn 1s ease-in-out;
     }
 
     h1 {
-      font-size: 2.5rem;
+      font-size: clamp(1.8rem, 5vw, 2.5rem); /* Tamanho de fonte responsivo */
       margin-top: 1rem;
       color: #ff6f00;
     }
@@ -79,26 +82,28 @@
     nav {
       display: flex;
       justify-content: center;
-      gap: 2rem;
+      gap: 1.5rem; /* Espaçamento ajustado */
       margin-top: 1rem;
-      flex-wrap: wrap;
+      flex-wrap: wrap; /* Garante que os links quebrem a linha em telas pequenas */
     }
 
     nav a {
       text-decoration: none;
       color: #ff6f00;
       font-weight: bold;
-      font-size: 1rem;
+      font-size: clamp(0.9rem, 2.5vw, 1rem); /* Tamanho de fonte responsivo */
       transition: color 0.3s;
+      padding: 0.5rem 1rem; /* Adiciona um pouco de padding para área de clique */
     }
 
     nav a:hover {
       color: #ff4081;
     }
 
+    /* Seções Gerais */
     section {
-      padding: 3rem 2rem;
-      max-width: 1000px;
+      padding: 3rem 1.5rem; /* Padding ajustado para telas menores */
+      max-width: 1200px; /* Aumenta a largura máxima para telas maiores */
       margin: auto;
     }
 
@@ -108,18 +113,19 @@
     }
 
     .hero h2 {
-      font-size: 2rem;
+      font-size: clamp(1.8rem, 5vw, 2rem);
       margin-bottom: 1rem;
     }
 
     .hero p {
-      font-size: 1.2rem;
+      font-size: clamp(1rem, 3vw, 1.2rem);
       color: #666;
     }
 
+    /* Seção de Serviços */
     .services {
       display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+      grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); /* Min-width um pouco maior */
       gap: 2rem;
       margin-top: 3rem;
     }
@@ -127,29 +133,33 @@
     .service-card {
       background: #fff;
       border-radius: 16px;
-      padding: 1.5rem;
+      padding: 2rem; /* Aumenta o padding */
       box-shadow: 0 4px 15px rgba(0,0,0,0.1);
-      transition: transform 0.3s ease;
+      transition: transform 0.3s ease, box-shadow 0.3s ease;
+      text-align: center; /* Centraliza o conteúdo do card */
     }
 
     .service-card:hover {
-      transform: scale(1.05);
+      transform: translateY(-5px); /* Efeito de elevação sutil */
+      box-shadow: 0 8px 20px rgba(0,0,0,0.15);
+    }
+
+    .service-card i {
+      margin-bottom: 1rem;
     }
 
     .service-card h3 {
       color: #ff6f00;
-      margin-bottom: 0.5rem;
+      margin-bottom: 0.75rem;
+      font-size: 1.4rem;
     }
 
-    footer {
-      text-align: center;
-      padding: 2rem;
-      background-color: #fff3e0;
-      margin-top: 4rem;
-      font-size: 0.9rem;
+    .service-card p {
+      font-size: 1rem;
       color: #555;
     }
 
+    /* Animações */
     @keyframes fadeIn {
       from { opacity: 0; transform: translateY(20px); }
       to { opacity: 1; transform: translateY(0); }
@@ -160,33 +170,170 @@
       to { transform: scale(1); opacity: 1; }
     }
 
-    @media (max-width: 600px) {
+    /* Seção "Transformando Ideias" e Clientes */
+    .clients-section {
+      padding: 3rem 1.5rem;
+      background-color: #f9f9f9;
+      text-align: center;
+    }
+
+    .clients-section h2 {
+      font-size: clamp(1.8rem, 5vw, 2rem);
+      margin-bottom: 1rem;
+      color: #ff6f00;
+    }
+
+    .clients-section p {
+      font-size: clamp(1rem, 3vw, 1.1rem);
+      margin-bottom: 2rem;
+      color: #666;
+    }
+
+    .instagram-embeds {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: center;
+      gap: 2rem; /* Espaçamento entre os embeds */
+      margin-top: 2rem;
+    }
+
+    /* Ajustes para embeds do Instagram */
+    .instagram-media {
+      max-width: 320px !important; /* Mais flexível, ajuste conforme necessário */
+      width: 100%;
+      min-width: 280px; /* Garante que não fique muito pequeno */
+      margin: 0 auto; /* Centraliza embeds individualmente */
+      box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+      border-radius: 8px; /* Bordas arredondadas para os embeds */
+      overflow: hidden; /* Garante que o conteúdo não vaze */
+    }
+
+    /* Bloco de Serviço Intercalado */
+    .bloco-servico {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      margin-bottom: 60px; /* Espaçamento ajustado */
+      gap: 30px;
+      flex-wrap: wrap; /* Permite que os blocos quebrem a linha */
+    }
+
+    .bloco-servico:nth-child(even) {
+      flex-direction: row-reverse;
+    }
+
+    .texto-servico {
+      flex: 1;
+      min-width: 300px; /* Garante que o texto não fique muito estreito */
+      padding: 1rem; /* Adiciona padding para legibilidade em telas menores */
+    }
+
+    .texto-servico h2 {
+      font-size: clamp(1.6rem, 4vw, 2rem);
+      color: #ff6f00;
+      margin-bottom: 10px;
+    }
+
+    .texto-servico p {
+      font-size: clamp(0.95rem, 2.5vw, 1.1rem);
+      color: #555;
+    }
+
+    .imagem-servico {
+      flex: 1;
+      min-width: 300px; /* Garante que a imagem não fique muito estreita */
+      display: flex; /* Para centralizar a imagem dentro do flex item */
+      justify-content: center;
+      align-items: center;
+    }
+
+    .imagem-servico img {
+      max-width: 100%;
+      height: auto; /* Garante que a proporção da imagem seja mantida */
+      border-radius: 12px;
+      box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+    }
+
+    /* Seções Sobre e Contato */
+    #sobre, #contato {
+      text-align: center;
+      padding: 3rem 1.5rem;
+    }
+
+    #sobre h2, #contato h2 {
+      font-size: clamp(1.8rem, 5vw, 2rem);
+      margin-bottom: 2rem;
+      color: #ff6f00;
+    }
+
+    #sobre p, #contato p {
+      font-size: clamp(1rem, 3vw, 1.1rem);
+      max-width: 700px;
+      margin: auto;
+      color: #555;
+    }
+
+    #contato strong {
+      display: block; /* Garante que o telefone e e-mail fiquem em linhas separadas */
+      margin-top: 0.5rem;
+    }
+
+    /* Rodapé */
+    footer {
+      text-align: center;
+      padding: 2rem;
+      background-color: #fff3e0;
+      margin-top: 4rem;
+      font-size: 0.9rem;
+      color: #555;
+    }
+
+    /* Media Queries para Telas Menores */
+    @media (max-width: 768px) {
+      .bloco-servico {
+        flex-direction: column; /* Empilha os blocos de serviço em telas menores */
+        text-align: center;
+      }
+      .bloco-servico:nth-child(even) {
+        flex-direction: column; /* Reseta a ordem para empilhamento */
+      }
+      .texto-servico, .imagem-servico {
+        min-width: unset; /* Remove min-width para maior flexibilidade */
+        width: 100%;
+      }
+    }
+
+    @media (max-width: 480px) {
+      header {
+        padding: 1.5rem 0.5rem;
+      }
       h1 {
-        font-size: 2rem;
+        font-size: 1.6rem;
       }
-
-      .hero h2 {
-        font-size: 1.5rem;
+      nav a {
+        padding: 0.4rem 0.8rem;
       }
-
-      .hero p {
-        font-size: 1rem;
+      section {
+        padding: 2rem 1rem;
       }
-
-      nav {
-        gap: 1rem;
+      .service-card {
+        padding: 1.5rem;
+      }
+      .service-card h3 {
+        font-size: 1.2rem;
+      }
+      .service-card p {
+        font-size: 0.9rem;
       }
     }
   </style>
 </head>
 <body>
 
-  <!-- Tela de carregamento -->
   <div id="loading">
     <img src="img/kf.png" alt="Carregando..." />
   </div>
 
-  <!-- Conteúdo do site -->
   <div id="main-content">
     <header>
       <img src="img/kf.png" alt="Logo KF Produções" />
@@ -198,66 +345,163 @@
       </nav>
     </header>
 
-    <section class="hero">
+    <section class="clients-section">
       <h2>Transformando Ideias em Resultados</h2>
-      <p>Somos especialistas em marketing digital, branding e produção audiovisual.</p>
+      <p>Alguns de nossos clientes:</p>
+      <div class="instagram-embeds">
+        <blockquote class="instagram-media" data-instgrm-permalink="https://www.instagram.com/p/DKpWugtRmmB/?img_index=1" data-instgrm-version="14"></blockquote>
+
+        <blockquote class="instagram-media" data-instgrm-permalink="https://www.instagram.com/p/DKc_Quvp4hP/?img_index=1" data-instgrm-version="14"></blockquote>
+      </div>
     </section>
 
+    <script async src="//www.instagram.com/embed.js"></script>
+
     <section id="servicos">
-      <h2 style="text-align:center; margin-bottom: 2rem;">Nossos Serviços</h2>
+      <h2 style="text-align: center; font-size: 2em; margin-bottom: 40px;">Nossos Serviços</h2>
       <div class="services">
-        <div class="service-card">
-          <h3>Gestão de Redes Sociais</h3>
-          <p>Criação de conteúdo, agendamento e crescimento orgânico para sua marca.</p>
+        <div class="service-card" data-aos="fade-up">
+          <i class="fas fa-bullhorn fa-2x" style="color: #ff6600;"></i>
+          <h3>Gestão de Tráfego</h3>
+          <p>Campanhas no Google, Facebook, Instagram e TikTok para atrair clientes.</p>
         </div>
-        <div class="service-card">
+        <div class="service-card" data-aos="fade-up" data-aos-delay="100">
+          <i class="fas fa-chart-line fa-2x" style="color: #3366cc;"></i>
+          <h3>SEO e Conteúdo</h3>
+          <p>Otimização para aparecer no Google e criação de blogs estratégicos.</p>
+        </div>
+        <div class="service-card" data-aos="fade-up" data-aos-delay="200">
+          <i class="fas fa-paint-brush fa-2x" style="color: #cc3366;"></i>
+          <h3>Design Gráfico</h3>
+          <p>Identidade visual, logotipo, posts para redes e materiais impressos.</p>
+        </div>
+        <div class="service-card" data-aos="fade-up" data-aos-delay="300">
+          <i class="fas fa-globe fa-2x" style="color: #00aa99;"></i>
           <h3>Criação de Sites</h3>
-          <p>Landing pages e sites responsivos que convertem visitantes em clientes.</p>
+          <p>Sites modernos, responsivos e landing pages que geram resultados.</p>
         </div>
-        <div class="service-card">
-          <h3>Produção de Vídeos</h3>
-          <p>Vídeos promocionais, reels, institucional e cobertura de eventos.</p>
+        <div class="service-card" data-aos="fade-up" data-aos-delay="400">
+          <i class="fas fa-camera fa-2x" style="color: #9933cc;"></i>
+          <h3>Foto e Vídeo</h3>
+          <p>Produção audiovisual para redes sociais, campanhas e eventos.</p>
+        </div>
+        <div class="service-card" data-aos="fade-up" data-aos-delay="500">
+          <i class="fas fa-handshake fa-2x" style="color: #ff3333;"></i>
+          <h3>Consultoria Estratégica</h3>
+          <p>Planejamento, análise de dados e posicionamento da sua marca.</p>
         </div>
       </div>
     </section>
 
+    <section>
+        <div class="bloco-servico" data-aos="fade-right">
+            <div class="texto-servico">
+                <h2>Gestão de Tráfego Pago</h2>
+                <p>Atraímos seus clientes ideais através de <strong>anúncios estratégicos</strong> no Google, Facebook, Instagram e TikTok, impulsionando suas vendas e visibilidade.</p>
+            </div>
+            <div class="imagem-servico">
+                <img src="https://via.placeholder.com/400x300/f6a800/ffffff?text=Tr%C3%A1fego+Pago" alt="Imagem de Tráfego Pago">
+            </div>
+        </div>
+
+        <div class="bloco-servico" data-aos="fade-left">
+            <div class="texto-servico">
+                <h2>SEO e Conteúdo</h2>
+                <p>Fazemos sua marca <strong>aparecer no topo do Google</strong> e criamos conteúdo relevante que atrai e engaja seu público de forma orgânica.</p>
+            </div>
+            <div class="imagem-servico">
+                <img src="https://via.placeholder.com/400x300/3366cc/ffffff?text=Cria%C3%A7%C3%A3o+de+Sites" alt="Imagem de Criação de Sites">
+            </div>
+        </div>
+
+        <div class="bloco-servico" data-aos="fade-right">
+            <div class="texto-servico">
+                <h2>Design Gráfico</h2>
+                <p>Criamos uma <strong>identidade visual impactante</strong> para sua marca: logotipo, materiais impressos e posts incríveis para suas redes sociais.</p>
+            </div>
+            <div class="imagem-servico">
+                <img src="https://via.placeholder.com/400x300/f6a800/ffffff?text=Tr%C3%A1fego+Pago" alt="Imagem de Tráfego Pago">
+            </div>
+        </div>
+
+        <div class="bloco-servico" data-aos="fade-left">
+            <div class="texto-servico">
+                <h2>Criação de Sites</h2>
+                <p>Desenvolvemos <strong>ites modernos e responsivos</strong> (que funcionam em qualquer aparelho) e landing pages focadas em converter visitantes em clientes.</p>
+            </div>
+            <div class="imagem-servico">
+                <img src="https://via.placeholder.com/400x300/3366cc/ffffff?text=Cria%C3%A7%C3%A3o+de+Sites" alt="Imagem de Criação de Sites">
+            </div>
+        </div>
+
+        <div class="bloco-servico" data-aos="fade-right">
+            <div class="texto-servico">
+                <h2>Foto e Vídeo</h2>
+                <p>Produzimos <strong>conteúdo audiovisual de alta qualidade</strong> para suas redes sociais, campanhas e eventos, contando a história da sua marca de forma cativante.</p>
+            </div>
+            <div class="imagem-servico">
+                <img src="https://via.placeholder.com/400x300/f6a800/ffffff?text=Tr%C3%A1fego+Pago" alt="Imagem de Tráfego Pago">
+            </div>
+        </div>
+
+        <div class="bloco-servico" data-aos="fade-left">
+            <div class="texto-servico">
+                <h2>Consultoria Estratégica</h2>
+                <p>Oferecemos <strong>orientação personalizada</strong> para o planejamento e posicionamento da sua marca, garantindo que você tome as melhores decisões para o crescimento do seu negócio.</p>
+            </div>
+            <div class="imagem-servico">
+                <img src="https://via.placeholder.com/400x300/3366cc/ffffff?text=Cria%C3%A7%C3%A3o+de+Sites" alt="Imagem de Criação de Sites">
+            </div>
+        </div>
+    </section>
+
+
     <section id="sobre">
-      <h2 style="text-align:center; margin-bottom: 2rem;">Sobre a KF Produções</h2>
-      <p style="text-align:center; max-width: 700px; margin: auto; color: #555;">
+      <h2>Sobre a KF Produções</h2>
+      <p>
         Somos uma agência jovem, criativa e apaixonada por transformar projetos em marcas memoráveis.
         Utilizamos design, estratégia e tecnologia para impulsionar resultados reais.
+        Nossa equipe está sempre atualizada com as últimas tendências do mercado para garantir que sua marca se destaque.
       </p>
     </section>
 
     <section id="contato">
-      <h2 style="text-align:center; margin-bottom: 2rem;">Entre em Contato</h2>
-      <p style="text-align:center;">Fale conosco pelo WhatsApp: <strong>(XX) XXXXX-XXXX</strong><br/>Ou envie um e-mail para: <strong>contato@kfproducoes.com</strong></p>
+      <h2>Entre em Contato</h2>
+      <p>Fale conosco pelo WhatsApp: <a href="https://wa.me/553597597822" target="_blank" style="color: #ff6f00; text-decoration: none;"><strong>(35) 99759-7822</strong></a><br/>Ou envie um e-mail para: <a href="mailto:contato@kfproducoes.com" style="color: #ff6f00; text-decoration: none;"><strong>contato@kfproducoes.com</strong></a></p>
     </section>
 
     <footer>
-      <p>© 2025 KF Produções - Todos os direitos reservados</p>
+      <p>&copy; 2025 KF Produções - Todos os direitos reservados</p>
     </footer>
   </div>
 
+  <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
   <script>
-    // Scroll suave para navegadores
+    AOS.init({ duration: 1000, once: true });
+
+    // Scroll suave
     document.querySelectorAll('.scroll-link').forEach(link => {
       link.addEventListener('click', function(e) {
         e.preventDefault();
         const id = this.getAttribute('href').substring(1);
         const section = document.getElementById(id);
-        section.scrollIntoView({ behavior: 'smooth' });
+        if (section) {
+          section.scrollIntoView({ behavior: 'smooth' });
+        }
       });
     });
 
     // Tela de loading
     window.addEventListener('load', () => {
       setTimeout(() => {
-        document.getElementById('loading').style.display = 'none';
-        document.getElementById('main-content').style.display = 'block';
-      }, 1500);
+        const loadingScreen = document.getElementById('loading');
+        const mainContent = document.getElementById('main-content');
+        if (loadingScreen && mainContent) {
+          loadingScreen.style.display = 'none';
+          mainContent.style.display = 'block';
+        }
+      }, 1500); // Tempo do loading em milissegundos (1500 = 1.5 segundos)
     });
   </script>
-
 </body>
 </html>
